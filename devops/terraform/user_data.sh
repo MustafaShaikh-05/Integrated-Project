@@ -8,10 +8,10 @@ apt-get install -y docker.io git
 systemctl start docker
 systemctl enable docker
 
-git clone https://github.com/YOUR_USERNAME/InsureVision-AI.git /app
+git clone https://github.com/MustafaShaikh-05/Integrated-Project.git /app
 cd /app
 
 echo "GROQ_API_KEY=${groq_api_key}" > .env
 
-docker build -f devops/Dockerfile -t insurevision-ai:latest .
-docker run -d -p 8000:8000 --env-file .env insurevision-ai:latest
+sudo docker build -f devops/Dockerfile -t insurevision-ai:latest .
+sudo docker run -d -p 8000:8000 --env-file .env insurevision-ai:latest

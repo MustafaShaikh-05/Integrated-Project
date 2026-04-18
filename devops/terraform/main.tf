@@ -42,7 +42,7 @@ resource "aws_security_group" "insurevision_sg" {
 # EC2 t2.micro instance (free tier eligible in many accounts)
 resource "aws_instance" "insurevision_ec2" {
   ami                    = var.ami_id
-  instance_type          = "t2.micro"
+  instance_type          = var.instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.insurevision_sg.id]
   user_data              = templatefile("${path.module}/user_data.sh", { groq_api_key = var.groq_api_key })

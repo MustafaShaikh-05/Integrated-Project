@@ -9,8 +9,8 @@ variable "ami_id" {
 }
 
 variable "key_name" {
-  description = "Your AWS key pair name"
-  default     = "your-key-pair-name"
+  description = "AWS-KEY-VALUE PAIR"
+  default     = "integrated-project-key"
 }
 
 variable "groq_api_key" {
@@ -18,4 +18,9 @@ variable "groq_api_key" {
   type        = string
   sensitive   = true
   default     = ""
+}
+
+variable "instance_type" {
+  description = "EC2 free tier instance type"
+  default     = "t3.micro"
 }
