@@ -1,4 +1,4 @@
-# Terraform root module: provisions a small EC2 instance and security group for InsureVision AI.
+# Terraform root module: provisions EC2, security group and Elastic IP for InsureVision AI.
 terraform {
   required_providers {
     aws = {
@@ -12,9 +12,9 @@ provider "aws" {
   region = var.aws_region
 }
 
-# Security group allowing port 22 (SSH) and 8000 (app)
+# Security group with name_prefix — auto deleted cleanly on destroy
 resource "aws_security_group" "insurevision_sg" {
-  name        = "insurevision-sg"
+  name_prefix = "insurevision-sg-"
   description = "Allow SSH and app traffic"
 
   ingress {
@@ -37,9 +37,13 @@ resource "aws_security_group" "insurevision_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
-# EC2 t2.micro instance (free tier eligible in many accounts)
+# EC2 instance
 resource "aws_instance" "insurevision_ec2" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
@@ -49,5 +53,15 @@ resource "aws_instance" "insurevision_ec2" {
 
   tags = {
     Name = "InsureVision-AI"
+  }
+}
+
+# Elastic IP — fixed permanent IP that never changes!
+resource "aws_eip" "insurevision_eip" {
+  instance = aws_instance.insurevision_ec2.id
+  domain   = "vpc"
+
+  tags = {
+    Name = "InsureVision-AI-EIP"
   }
 }

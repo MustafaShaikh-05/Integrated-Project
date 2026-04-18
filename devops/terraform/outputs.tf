@@ -1,10 +1,10 @@
-# Outputs after apply — public IP and convenience app URL.
+# Outputs after apply — fixed Elastic IP and app URL.
 output "public_ip" {
-  description = "Public IP of the EC2 instance"
-  value       = aws_instance.insurevision_ec2.public_ip
+  description = "Fixed Elastic IP — never changes between deploys!"
+  value       = aws_eip.insurevision_eip.public_ip
 }
 
 output "app_url" {
-  description = "URL to access the app"
-  value       = "http://${aws_instance.insurevision_ec2.public_ip}:8000"
+  description = "App URL — bookmark this, it never changes!"
+  value       = "http://${aws_eip.insurevision_eip.public_ip}:8000"
 }
