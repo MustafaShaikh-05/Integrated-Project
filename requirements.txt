@@ -1,0 +1,7 @@
+# InsureVision AI — Python dependencies for the FastAPI backend and Groq integrations.
+fastapi
+uvicorn
+groq
+requests
+python-dotenv
+pydantic

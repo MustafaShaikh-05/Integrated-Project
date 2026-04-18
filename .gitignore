@@ -1,0 +1,19 @@
+# Local secrets and environments
+.env
+.env.*
+.venv/
+venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# OS noise
+.DS_Store
+
+# Terraform — never commit state or provider cache
+devops/terraform/.terraform/
+devops/terraform/terraform.tfstate
+devops/terraform/terraform.tfstate.backup
+devops/terraform/.terraform.lock.hcl

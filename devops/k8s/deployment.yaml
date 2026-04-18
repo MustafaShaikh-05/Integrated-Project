@@ -1,0 +1,28 @@
+# Kubernetes Deployment — three replicas of the FastAPI app with a rolling update.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insurevision-deployment
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: insurevision
+  template:
+    metadata:
+      labels:
+        app: insurevision
+    spec:
+      containers:
+      - name: insurevision
+        image: insurevision-ai:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - secretRef:
+            name: groq-secret
